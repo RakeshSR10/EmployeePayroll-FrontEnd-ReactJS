@@ -17,7 +17,6 @@ render() {
         lastName: '',
         email: '',
         password: '',
-        confirmPassword: '',
     }
 
     const validationSchema = Yup.object().shape({
@@ -25,7 +24,6 @@ render() {
         lastName: Yup.string().min(1).required("Required"),
         email: Yup.string().email('please enter valid email').required("Required"),
         password: Yup.string().required("Required").min(8),
-        confirmPassword: Yup.string().oneOf([Yup.ref('password'), null], 'Passwords must match')
     })
 
     const onSubmit = (values, props) => {
@@ -53,7 +51,6 @@ render() {
                                 <Field as={TextField} fullWidth label='Last Name' placeholder='your last name' helperText={<ErrorMessage name="lastName"/>} name="lastName"/>
                                 <Field as={TextField} fullWidth label='Email' placeholder=' your email' helperText={<ErrorMessage name="email"/>} name="email"/>
                                 <Field as={TextField} fullWidth label='Password' placeholder='your new password' type="password" helperText={<ErrorMessage name="password"/>} name="password"/>
-                                <Field as={TextField} fullWidth label='Confirm Password' placeholder='confirm your password' type="password" helperText={<ErrorMessage name="confirmPassword"/>} name="confirmPassword"/>
                                 <Button type='submit' variant='contained' disabled={props.isSubmitting} color='primary' style={marginTop}>{props.isSubmitting ? "Loading" : "Sing-Up"}</Button>
                             </Form>
                         )}
