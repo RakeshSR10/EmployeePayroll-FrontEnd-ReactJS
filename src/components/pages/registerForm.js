@@ -7,7 +7,7 @@ import * as Yup from 'yup';
 class Register extends React.Component  {
 
 render() {
-    const paperStyle = {padding:'30px 20px', width:300, margin:'20px auto'}
+    const paperStyle = {padding:'60px 20px', width:400, margin:'120px auto'}
     const headerStyle = {margin:0}  
     const avatarStyle = {backgroundColor:'#1bbd7e'}
     const marginTop = {marginTop:20}
@@ -47,10 +47,10 @@ render() {
                     <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
                         {(props) => (
                             <Form>
-                                <Field as={TextField} fullWidth label='First Name' placeholder='your first name' helperText={<ErrorMessage name="firstName"/>} name="firstName"/>
-                                <Field as={TextField} fullWidth label='Last Name' placeholder='your last name' helperText={<ErrorMessage name="lastName"/>} name="lastName"/>
-                                <Field as={TextField} fullWidth label='Email' placeholder=' your email' helperText={<ErrorMessage name="email"/>} name="email"/>
-                                <Field as={TextField} fullWidth label='Password' placeholder='your new password' type="password" helperText={<ErrorMessage name="password"/>} name="password"/>
+                                <Field as={TextField} fullWidth required label='First Name' placeholder='your first name' helperText={<ErrorMessage name="firstName"/>} name="firstName"/>
+                                <Field as={TextField} fullWidth required label='Last Name' placeholder='your last name' helperText={<ErrorMessage name="lastName"/>} name="lastName"/>
+                                <Field as={TextField} fullWidth required label='Email' placeholder=' your email' helperText={<ErrorMessage name="email"/>} name="email"/>
+                                <Field as={TextField} fullWidth required label='Password' placeholder='your new password' type="password" helperText={<ErrorMessage name="password"/>} name="password"/>
                                 <Button type='submit' variant='contained' disabled={props.isSubmitting} color='primary' style={marginTop}>{props.isSubmitting ? "Loading" : "Sing-Up"}</Button>
                             </Form>
                         )}
