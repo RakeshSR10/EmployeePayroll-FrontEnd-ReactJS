@@ -2,7 +2,7 @@ import React from 'react';
 import { Grid, Paper, Avatar, Typography, TextField, Button } from '@material-ui/core';
 import PersonAddOutlinedIcon from '@material-ui/icons/PersonAddOutlined';
 import {Formik, Field, Form, ErrorMessage} from 'formik'
-import * as Yup from 'yup'
+import * as Yup from 'yup';
 
 class Register extends React.Component  {
 
