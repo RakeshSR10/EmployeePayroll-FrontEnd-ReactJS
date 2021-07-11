@@ -4,9 +4,8 @@ import PersonAddOutlinedIcon from '@material-ui/icons/PersonAddOutlined';
 import {Formik, Field, Form, ErrorMessage} from 'formik'
 import * as Yup from 'yup';
 
-class Register extends React.Component  {
+const Register = ({ handleChange }) => {
 
-render() {
     const paperStyle = {padding:'60px 20px', width:400, margin:'120px auto'}
     const headerStyle = {margin:0}  
     const avatarStyle = {backgroundColor:'#1bbd7e'}
@@ -20,10 +19,10 @@ render() {
     }
 
     const validationSchema = Yup.object().shape({
-        firstName: Yup.string().min(3,"first name is too short").required("Required"),
-        lastName: Yup.string().min(1).required("Required"),
+        firstName: Yup.string().min(3,"first name is too short").matches(/^[A-Z ]{1}[a-z A-Z ]{3,}$/).required("Required"),
+        lastName: Yup.string().min(1).matches(/^[A-Z ]{1}[a-z A-Z ]{2,}$/).required("Required"),
         email: Yup.string().email('please enter valid email').required("Required"),
-        password: Yup.string().required("Required").min(8),
+        password: Yup.string().min(8).required("Required"),
     })
 
     const onSubmit = (values, props) => {
@@ -58,6 +57,6 @@ render() {
                 </Paper>
             </Grid>
         )
-    }
+    
 }
 export default Register;

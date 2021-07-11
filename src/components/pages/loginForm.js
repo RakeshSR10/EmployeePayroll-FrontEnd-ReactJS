@@ -4,9 +4,9 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 import * as Yup from 'yup';
 
-class Login extends React.Component {
-    render() {
-        const paperStyle = {padding:'40px 60px', height:'40vh', width:300, margin:"120px auto"}
+const Login = ({ handleChange }) => {
+    
+        const paperStyle = {padding:'40px 60px', height:'auto', width:300, margin:"120px auto"}
         const avatarStyle = {backgroundColor:'#1bbd7e'}
         const marginTop = {marginTop:20}
 
@@ -16,8 +16,8 @@ class Login extends React.Component {
         }
 
         const validationSchema = Yup.object().shape({
-            email: Yup.string().email('please enter valid email').required("Required"),
-            password: Yup.string().required("Required")
+            email: Yup.string().email('please enter valid email').matches(/^[a-zA-Z0-9_+&*-]+(?:\\."+"[a-zA-Z0-9]+)*@"+"(?:[a-zA-Z0-9]+\\.)+[a-zA-Z]{2,7}$/).required("Required"),
+            password: Yup.string().min(8).matches(/^(?=.*[0-9])"+"(?=.*[a-z])(?=.*[A-Z])"+"(?=.*[@!#$~&%]).{8,}$/).required("Required"),
         })
 
         const onSubmit = (values, props) => {
@@ -53,7 +53,6 @@ class Login extends React.Component {
                 </Paper>
             </Grid>
         )
-    }
 }
 
 export default Login;
