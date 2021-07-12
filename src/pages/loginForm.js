@@ -3,8 +3,10 @@ import { Grid, Paper, Avatar, TextField, Button } from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 import * as Yup from 'yup';
+import User from '../services/user.js'
+const user = new User();
 
-const Login = ({ handleChange }) => {
+const Login = () => {
     
         const paperStyle = {padding:'40px 60px', height:'auto', width:300, margin:"120px auto"}
         const avatarStyle = {backgroundColor:'#1bbd7e'}
@@ -16,17 +18,18 @@ const Login = ({ handleChange }) => {
         }
 
         const validationSchema = Yup.object().shape({
-            email: Yup.string().email('please enter valid email').matches(/^[a-zA-Z0-9_+&*-]+(?:\\."+"[a-zA-Z0-9]+)*@"+"(?:[a-zA-Z0-9]+\\.)+[a-zA-Z]{2,7}$/).required("Required"),
-            password: Yup.string().min(8).matches(/^(?=.*[0-9])"+"(?=.*[a-z])(?=.*[A-Z])"+"(?=.*[@!#$~&%]).{8,}$/).required("Required"),
+            email: Yup.string().email('please enter valid email').required("Required"),
+            password: Yup.string().min(8).required("Required"),
         })
 
-        const onSubmit = (values, props) => {
-            console.log(values)
-            setTimeout(() => {
-                props.resetForm()
-                props.setSubmitting(false)
-            }, 2000)
-    
+        const onSubmit = (values, props) => {        
+            const loginDetails = {
+                "emailId": values.email,
+                "password": values.password
+            }
+            user.login(loginDetails)
+            props.resetForm()
+            props.setSubmitting(false)    
         }
         
         return (

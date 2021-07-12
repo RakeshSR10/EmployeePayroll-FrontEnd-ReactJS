@@ -3,8 +3,10 @@ import { Grid, Paper, Avatar, Typography, TextField, Button } from '@material-ui
 import PersonAddOutlinedIcon from '@material-ui/icons/PersonAddOutlined';
 import {Formik, Field, Form, ErrorMessage} from 'formik'
 import * as Yup from 'yup';
+import user from '../services/user.js';
+const  userObject = new user();
 
-const Register = ({ handleChange }) => {
+const Register = () => {
 
     const paperStyle = {padding:'60px 20px', width:400, margin:'120px auto'}
     const headerStyle = {margin:0}  
@@ -20,18 +22,23 @@ const Register = ({ handleChange }) => {
 
     const validationSchema = Yup.object().shape({
         firstName: Yup.string().min(3,"first name is too short").matches(/^[A-Z ]{1}[a-z A-Z ]{3,}$/).required("Required"),
-        lastName: Yup.string().min(1).matches(/^[A-Z ]{1}[a-z A-Z ]{2,}$/).required("Required"),
+        lastName: Yup.string().min(1).matches(/^[a-z A-Z]{1,}$/).required("Required"),
         email: Yup.string().email('please enter valid email').required("Required"),
-        password: Yup.string().min(8).required("Required"),
+        password: Yup.string().min(8, "Password should be atleast 8 characters long")
+            .matches(/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$/,
+                "Password should contain letters,numbers & special characters").required("Required")
     })
 
     const onSubmit = (values, props) => {
-        console.log(values);
-        console.log(props);
-        setTimeout(() =>{
-            props.resetForm()
-            props.setSubmitting(false)
-        }, 2000)
+        const employeeData = {
+            "firstName": values.firstName,
+            "lastName": values.lastName,
+            "emailId": values.email,
+            "password": values.password,
+        }
+        userObject.SignUpData(employeeData)    
+        props.resetForm()
+        props.setSubmitting(false)        
     }
     return (
             <Grid>
@@ -56,7 +63,7 @@ const Register = ({ handleChange }) => {
                     </Formik>
                 </Paper>
             </Grid>
-        )
-    
+        )   
 }
+
 export default Register;
