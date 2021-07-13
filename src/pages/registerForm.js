@@ -3,8 +3,8 @@ import { Grid, Paper, Avatar, Typography, TextField, Button } from '@material-ui
 import PersonAddOutlinedIcon from '@material-ui/icons/PersonAddOutlined';
 import {Formik, Field, Form, ErrorMessage} from 'formik'
 import * as Yup from 'yup';
-import user from '../services/user.js';
-const  userObject = new user();
+import User from '../services/user.js';
+const  userObject = new User();
 
 const Register = () => {
 
@@ -24,22 +24,23 @@ const Register = () => {
         firstName: Yup.string().min(3,"first name is too short").matches(/^[A-Z ]{1}[a-z A-Z ]{3,}$/).required("Required"),
         lastName: Yup.string().min(1).matches(/^[a-z A-Z]{1,}$/).required("Required"),
         email: Yup.string().email('please enter valid email').required("Required"),
-        password: Yup.string().min(8, "Password should be atleast 8 characters long")
+        password: Yup.string().min(8, "Password should be at-least 8 characters long")
             .matches(/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$/,
                 "Password should contain letters,numbers & special characters").required("Required")
     })
 
     const onSubmit = (values, props) => {
-        const employeeData = {
+        const employee = {
             "firstName": values.firstName,
             "lastName": values.lastName,
-            "emailId": values.email,
+            "email": values.email,
             "password": values.password,
         }
-        userObject.SignUpData(employeeData)    
-        props.resetForm()
-        props.setSubmitting(false)        
+        userObject.register(employee)    
+        props.resetForm() 
+        props.setSubmitting(false)      
     }
+    
     return (
             <Grid>
                 <Paper elevation={10} style={paperStyle}>
