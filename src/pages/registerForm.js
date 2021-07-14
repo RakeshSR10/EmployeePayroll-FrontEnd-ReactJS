@@ -6,7 +6,7 @@ import * as Yup from 'yup';
 import User from '../services/user.js';
 const  userObject = new User();
 
-const Register = () => {
+const Registration = () => {
 
     const paperStyle = {padding:'60px 20px', width:400, margin:'120px auto'}
     const headerStyle = {margin:0}  
@@ -30,13 +30,13 @@ const Register = () => {
     })
 
     const onSubmit = (values, props) => {
-        const employee = {
+        const user = {
             "firstName": values.firstName,
             "lastName": values.lastName,
             "email": values.email,
             "password": values.password,
         }
-        userObject.register(employee)    
+        userObject.register(user)    
         props.resetForm() 
         props.setSubmitting(false)      
     }
@@ -67,4 +67,4 @@ const Register = () => {
         )   
 }
 
-export default Register;
+export default Registration;
