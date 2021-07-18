@@ -3,7 +3,7 @@ import { Grid, Paper, Avatar, TextField, Button } from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 import * as Yup from 'yup';
-import User from '../services/user.js'
+import User from '../services/user.js';
 const user = new User();
 
 const Login = () => {
