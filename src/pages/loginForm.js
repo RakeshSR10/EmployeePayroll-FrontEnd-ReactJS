@@ -36,19 +36,22 @@ const Login = () => {
             <Grid>
                 <Paper elevation={10} style={paperStyle}>
                     <Grid align='center'>
-                        <Avatar style={avatarStyle}><LockOutlinedIcon/></Avatar>
-                            <h2>Log-In</h2>
+                        <Avatar data-testid='logo' style={avatarStyle}><LockOutlinedIcon/></Avatar>
+                            <h2 data-testid="login">Log-In</h2>
                     </Grid>
                     <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
                         {(props) => (
-                            <Form>
-                                <Field as={TextField} label='email' name="email" 
+                            <Form data-testid='form'>
+                                <Field as={TextField} data-testid='email'
+                                    label='email' name="email" 
                                     placeholder='Enter your email' fullWidth required
                                     helperText={<ErrorMessage name="email"/>}/>
-                                <Field as={TextField} label='password' name="password" 
+                                <Field as={TextField} data-testid='password'
+                                    label='password' name="password" 
                                     placeholder='Enter your password' type='password' fullWidth required
                                     helperText={<ErrorMessage name="password" />}/>
-                                <Button type='submit' color='primary' variant="contained" style={marginTop} 
+                                <Button type='submit' data-testid='submitButton'
+                                    color='primary' variant="contained" style={marginTop} 
                                     fullWidth>{props.isSubmitting ? "Loading" : "Sign-in"}</Button>
                             </Form>
                         )}
