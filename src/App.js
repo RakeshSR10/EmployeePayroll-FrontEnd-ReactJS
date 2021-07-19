@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
-import Registration from './pages/registerForm.js'
-import Login from './pages/loginForm.js'; 
+import Registration from './pages/registerForm.jsx'
+import Login from './pages/loginForm.jsx'; 
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 require('dotenv').config()
 

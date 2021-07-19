@@ -1,9 +1,9 @@
 import React from 'react';
 import Enzyme from 'enzyme';
 import '@testing-library/jest-dom/extend-expect';
-import Registration from '../pages/registerForm.js';
+import Registration from '../pages/registerForm.jsx';
 import Adapter from 'enzyme-adapter-react-16';
-import { getByTestId, render } from '@testing-library/react';
+import { render } from '@testing-library/react';
 
 Enzyme.configure({ adapter : new Adapter() });
 

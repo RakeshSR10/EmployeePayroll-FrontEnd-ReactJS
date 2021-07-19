@@ -17,7 +17,7 @@ class User {
     
     register = (user) => {
         return Axios.post("/register", user).then(res => {
-            alert(res.data + "Employee Registered Successfully")
+            alert("Employee Registered Successfully")
             console.log(res.data.message);
         }).catch(error => {
             alert(error.message);
