@@ -22,7 +22,7 @@ import ViewListIcon from '@material-ui/icons/ViewList';
 import AddBoxIcon from '@material-ui/icons/AddBox';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const drawerWidth = 200;
 
@@ -115,7 +115,6 @@ const useStyles = makeStyles((theme) => ({
 export default function Dashboard() {
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
-    const history = useHistory();
 
     const handleDrawerOpen = () => {
         setOpen(true);
@@ -125,8 +124,7 @@ export default function Dashboard() {
     };
 
     const handleExitToAppOutlinedIcon = () => {
-        localStorage.removeItem('token');
-        history.push('/');
+        
     }
 
     const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
