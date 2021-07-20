@@ -1,38 +1,107 @@
 import React from 'react';
 import { Grid, Paper, Avatar, Typography, TextField, Button } from '@material-ui/core';
 import PersonAddOutlinedIcon from '@material-ui/icons/PersonAddOutlined';
+import { Formik, Field, Form, ErrorMessage } from 'formik'
+import * as Yup from 'yup';
 
+const AddEmployee = () => {
 
-class AddEmployee extends React.Component  {
-
-render() {
-    const paperStyle = {padding:'30px 20px', width:300, margin:'20px auto'}
+    const paperStyle = {padding:'60px 20px', width:400, margin:'auto'}
     const headerStyle = {margin:0}  
     const avatarStyle = {backgroundColor:'#1bbd7e'}
     const marginTop = {marginTop:20}
 
+    const initialValues = {
+        name: '',
+        email: '',
+        phoneNumber: '',
+        department: '',
+        salary: '',
+        company: ''
+    }
+
+    const validationSchema = Yup.object().shape({
+        name: Yup.string().min(3,"first name is too short").matches(/^[A-Z ]{1}[a-z A-Z ]{3,}$/).required("Required"),
+        email: Yup.string().email('please enter valid email').required('Required'),
+        phoneNumber: Yup.string().required("Required").min(10,'Should be integers only').matches(/^[0-9]{10}$/),
+        department: Yup.string().required('Required').matches(/^[a-zA-Z]{2,}$/),
+        salary: Yup.string().required('Required').matches(/^[0-9]{3,}$/),
+        company: Yup.string().required('Required').matches(/^[a-zA-Z]{2,}$/)
+    })
+
+    const onSubmit = (values, props) => {
+        console.log(values);
+        console.log(props);
+        setTimeout(() =>{
+            props.resetForm()
+            props.setSubmitting(false)
+        }, 2000)
+    }
+    
     return (
             <Grid>
                 <Paper elevation={10} style={paperStyle}>
                     <Grid align='center'>
-                        <Avatar style={ avatarStyle }>
+                        <Avatar data-testid='avatar' style={ avatarStyle }>
                             <PersonAddOutlinedIcon />
                         </Avatar>
-                        <h2 style={headerStyle}>Add New Employee</h2>
-                        <Typography variant='caption' gutterBottom>Please fill all the fields</Typography>
+                        <h2 data-testid='heading' style={headerStyle}>Add Employee Form</h2>
+                        <Typography data-testid="typography" variant='caption' gutterBottom>Please fill all the fields</Typography>
                     </Grid>
-                    <form>
-                        <TextField fullWidth label='Name' placeholder='your name' name="name"/>
-                        <TextField fullWidth label='Email' placeholder=' your email' name="email"/>
-                        <TextField fullWidth label='Phone Number' placeholder=' your mobile number' name="phoneNumber"/>
-                        <TextField fullWidth label='Department' name="department"/>
-                        <TextField fullWidth label='salary' name="salary"/>
-                        <TextField fullWidth label='Company' name="company"/>
-                        <Button type='submit' variant='contained' color='primary' style={marginTop}>Add</Button>
-                    </form>
+                    <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
+                        {(props) => (
+                            <Form>
+                                <Field as={TextField} 
+                                    fullWidth required 
+                                    label='Name' 
+                                    placeholder='your name' 
+                                    helperText={<ErrorMessage name="name"/>} 
+                                name="name"/>
+
+                                <Field as={TextField} 
+                                    fullWidth required 
+                                    label='Email' 
+                                    placeholder='your email' 
+                                    helperText={<ErrorMessage name="email"/>} 
+                                name="email"/>
+
+                                <Field as={TextField} 
+                                    fullWidth required 
+                                    label='Phone Number' 
+                                    placeholder='your email' 
+                                    helperText={<ErrorMessage name="phoneNumber"/>} 
+                                name="phoneNumber"/>
+
+                                <Field as={TextField} 
+                                    fullWidth required 
+                                    label='Department'  
+                                    helperText={<ErrorMessage name="department"/>} 
+                                name="department"/>
+
+                                <Field as={TextField} 
+                                    fullWidth required 
+                                    label='Salary'  
+                                    helperText={<ErrorMessage name="salary"/>} 
+                                name="salary"/>
+
+                                <Field as={TextField} 
+                                    fullWidth required 
+                                    label='Company'  
+                                    helperText={<ErrorMessage name="company"/>} 
+                                name="company"/>
+
+                                <Button type='submit' 
+                                    variant='contained' 
+                                    disabled={props.isSubmitting} 
+                                    color='primary' 
+                                    style={marginTop}>{props.isSubmitting ? "Loading" : "ADD"}
+                                </Button>
+                            </Form>
+                        )}
+                    </Formik>
                 </Paper>
             </Grid>
-        )
-    }
+        )   
 }
+
 export default AddEmployee;
