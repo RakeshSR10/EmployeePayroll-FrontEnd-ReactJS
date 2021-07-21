@@ -169,25 +169,25 @@ export default function Dashboard() {
                         <ListItemIcon>
                             <ViewListIcon />
                         </ListItemIcon>
-                        <ListItemText primary="List Employees" />
+                        <ListItemText primary="List" />
                     </ListItem>
                     <ListItem button component={Link} to={'/addEmployee'}>
                         <ListItemIcon>
                             <AddBoxIcon />
                         </ListItemIcon>
-                        <ListItemText primary="Add New" />
+                        <ListItemText primary="Add" />
                     </ListItem>
                     <ListItem button component={Link} to={'/editEmployee'}>
                         <ListItemIcon>
                             <EditIcon />
                         </ListItemIcon>
-                        <ListItemText primary="Edit Employee" />
+                        <ListItemText primary="Edit" />
                     </ListItem>
                     <ListItem button component={Link} to={'/deleteEmployee'}>
                         <ListItemIcon>
                             <DeleteIcon />
                         </ListItemIcon>
-                        <ListItemText primary="Delete Employee" />
+                        <ListItemText primary="Delete" />
                     </ListItem>
                 </List>
             </Drawer>
