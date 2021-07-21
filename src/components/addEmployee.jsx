@@ -3,6 +3,9 @@ import { Grid, Paper, Avatar, Typography, TextField, Button } from '@material-ui
 import PersonAddOutlinedIcon from '@material-ui/icons/PersonAddOutlined';
 import { Formik, Field, Form, ErrorMessage } from 'formik'
 import * as Yup from 'yup';
+import { Employee } from '../services/employee.js';
+
+const employee = new Employee();
 
 const AddEmployee = () => {
 
@@ -30,12 +33,21 @@ const AddEmployee = () => {
     })
 
     const onSubmit = (values, props) => {
-        console.log(values);
-        console.log(props);
-        setTimeout(() =>{
-            props.resetForm()
-            props.setSubmitting(false)
-        }, 2000)
+        const employeeData = {
+            name: values.name,
+            email: values.email,
+            phoneNumber: values.phoneNumber,
+            department: values.department,
+            salary: values.salary,
+            company: values.company
+        };
+        employee.addEmployee(employeeData).then((res) => {
+            alert(res.data.message);
+        }).catch((error) => {
+            console.log(error);
+        });
+        props.resetForm()
+        props.setSubmitting(false)
     }
     
     return (

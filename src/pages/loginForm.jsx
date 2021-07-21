@@ -31,7 +31,7 @@ const Login = () => {
             };
             user.login(loginDetails).then(res => {
                 alert("Login Successfully");
-                localStorage.setItem('Login token = ', res.data.token);
+                localStorage.setItem('token', res.data.token);
                 history.push('/dashboard');
                 })
                 .catch((error) => {
