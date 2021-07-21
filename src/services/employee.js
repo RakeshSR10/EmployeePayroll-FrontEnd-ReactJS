@@ -6,8 +6,8 @@ export class Employee {
     addEmployee = (employeeDetails) => {
         return Axios.post('/addEmployee', employeeDetails, {
             headers : {
-                Authorization: `Bearer ${token}`,
-            },
+                'token': token
+            }
         });
     }
 }

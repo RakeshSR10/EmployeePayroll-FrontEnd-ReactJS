@@ -22,7 +22,7 @@ import ViewListIcon from '@material-ui/icons/ViewList';
 import AddBoxIcon from '@material-ui/icons/AddBox';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 const drawerWidth = 200;
 
@@ -113,6 +113,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Dashboard() {
+    const history = useHistory();
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
 
@@ -124,7 +125,8 @@ export default function Dashboard() {
     };
 
     const handleExitToAppOutlinedIcon = () => {
-        
+        localStorage.clear('token');
+        history.push('/login');
     }
 
     const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
@@ -147,7 +149,7 @@ export default function Dashboard() {
                         Employee Payroll Application
                     </Typography>
                     <IconButton onClick={handleExitToAppOutlinedIcon} className={classes.myClassName} color="inherit">
-                        Logout<ExitToAppOutlinedIcon />
+                        Logout <ExitToAppOutlinedIcon />
                     </IconButton>
                 </Toolbar>
             </AppBar>
@@ -165,7 +167,7 @@ export default function Dashboard() {
                 </div>
                 <Divider />
                 <List>
-                    <ListItem button component={Link} to={'/Employees'}>
+                    <ListItem button component={Link} to={'/EmployeesList'}>
                         <ListItemIcon>
                             <ViewListIcon />
                         </ListItemIcon>

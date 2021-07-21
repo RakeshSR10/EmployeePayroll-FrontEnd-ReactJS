@@ -4,11 +4,13 @@ import PersonAddOutlinedIcon from '@material-ui/icons/PersonAddOutlined';
 import { Formik, Field, Form, ErrorMessage } from 'formik'
 import * as Yup from 'yup';
 import { Employee } from '../services/employee.js';
+import { useHistory } from 'react-router';
 
 const employee = new Employee();
 
 const AddEmployee = () => {
 
+    const history = useHistory();
     const paperStyle = {padding:'60px 20px', width:400, margin:'120px auto'}
     const headerStyle = {margin:0}  
     const avatarStyle = {backgroundColor:'#1bbd7e'}
@@ -43,6 +45,7 @@ const AddEmployee = () => {
         };
         employee.addEmployee(employeeData).then((res) => {
             alert(res.data.message);
+            history.push();
         }).catch((error) => {
             console.log(error);
         });
