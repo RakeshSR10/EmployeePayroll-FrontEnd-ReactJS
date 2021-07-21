@@ -3,6 +3,7 @@ import { Grid, Paper, Avatar, Typography, TextField, Button } from '@material-ui
 import PersonAddOutlinedIcon from '@material-ui/icons/PersonAddOutlined';
 import { Formik, Field, Form, ErrorMessage } from 'formik'
 import * as Yup from 'yup';
+import { useHistory } from 'react-router';
 import User from '../services/user.js';
 const  userObject = new User();
 
@@ -13,6 +14,8 @@ const Registration = () => {
     const avatarStyle = {backgroundColor:'#1bbd7e'}
     const marginTop = {marginTop:20}
 
+    const history = useHistory();
+    
     const initialValues = {
         firstName: '',
         lastName: '',
@@ -36,7 +39,13 @@ const Registration = () => {
             "email": values.email,
             "password": values.password,
         }
-        userObject.register(user)    
+        userObject.register(user).then(res => {
+            alert("User Registered Successfully")
+            console.log(res.data.message);
+            history.push('/login');
+        }).catch(error => {
+            alert(error.message);
+        });    
         props.resetForm() 
         props.setSubmitting(false)      
     }

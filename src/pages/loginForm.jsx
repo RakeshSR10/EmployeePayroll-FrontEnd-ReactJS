@@ -1,16 +1,18 @@
 import React from 'react'
 import { Grid, Paper, Avatar, TextField, Button } from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import { Formik, Form, Field, ErrorMessage } from 'formik'
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { useHistory } from 'react-router';
 import * as Yup from 'yup';
 import User from '../services/user.js';
 const user = new User();
 
 const Login = () => {
-    
         const paperStyle = {padding:'40px 60px', height:'auto', width:300, margin:"120px auto"}
         const avatarStyle = {backgroundColor:'#1bbd7e'}
         const marginTop = {marginTop:20}
+
+        const history = useHistory();
 
         const initialValues = {
             email: '',
@@ -26,8 +28,15 @@ const Login = () => {
             const loginDetails = {
                 "email": values.email,
                 "password": values.password
-            }
-            user.login(loginDetails)
+            };
+            user.login(loginDetails).then(res => {
+                alert("Login Successfully");
+                localStorage.setItem('Login token = ', res.data.token);
+                history.push('/dashboard');
+                })
+                .catch((error) => {
+                console.log(error.message);
+            });
             props.resetForm()
             props.setSubmitting(false)    
         }

@@ -7,23 +7,11 @@ console.log(BaseURL);
 class User {
     
     login = (loginDetails) => {
-        return Axios.post("/login", loginDetails)
-            .then(res => {
-            alert("Login Successfully");
-            localStorage.setItem('Login token = ', res.data.token);
-            })
-            .catch((error) => {
-            console.log(error.message);
-        })
+        return Axios.post("/login", loginDetails);
     }
     
     register = (user) => {
-        return Axios.post("/register", user).then(res => {
-            alert("User Registered Successfully")
-            console.log(res.data.message);
-        }).catch(error => {
-            alert(error.message);
-        })
+        return Axios.post("/register", user);
     }
 }
 
