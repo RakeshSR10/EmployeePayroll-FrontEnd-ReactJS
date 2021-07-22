@@ -25,6 +25,25 @@ const AddEmployee = () => {
         company: ''
     }
 
+    const onSubmit = (values, props) => {
+        const employeeDetails = {
+            name: values.name,
+            email: values.email,
+            phoneNumber: values.phoneNumber,
+            department: values.department,
+            salary: values.salary,
+            company: values.company
+        };
+        employee.addEmployee(employeeDetails).then((res) => {
+            alert(res.data.message);
+            history.push('/dashboard/EmployeesList');
+        }).catch((error) => {
+            console.log(error);
+        });
+        props.resetForm()
+        props.setSubmitting(false)
+    } 
+    
     const validationSchema = Yup.object().shape({
         name: Yup.string().min(3,"first name is too short").matches(/^[A-Z ]{1}[a-z A-Z ]{3,}$/).required("Required"),
         email: Yup.string().email('please enter valid email').required('Required'),
@@ -34,25 +53,6 @@ const AddEmployee = () => {
         company: Yup.string().required('Required').matches(/^[a-zA-Z]{2,}$/)
     })
 
-    const onSubmit = (values, props) => {
-        const employeeData = {
-            name: values.name,
-            email: values.email,
-            phoneNumber: values.phoneNumber,
-            department: values.department,
-            salary: values.salary,
-            company: values.company
-        };
-        employee.addEmployee(employeeData).then((res) => {
-            alert(res.data.message);
-            history.push();
-        }).catch((error) => {
-            console.log(error);
-        });
-        props.resetForm()
-        props.setSubmitting(false)
-    }
-    
     return (
             <Grid>
                 <Paper elevation={10} style={paperStyle}>
