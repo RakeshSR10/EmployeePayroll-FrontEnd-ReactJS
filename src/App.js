@@ -17,12 +17,11 @@ const App = () => {
           <Route exact path='/' component={Login} />
             <Route path='/register' component={Registration} />
             <Route path='/login' component={Login} />
+            <Route path='/dashboard' component={Dashboard} />
+            <Route path='/addEmployee' component={AddEmployee} />
+            <Route path='/employeesList' component={ListEmployees}></Route>
+            <Route path='/updateEmployee/:empId' component={UpdateEmployee}></Route>
           </Switch>
-      
-          <Route path='/dashboard' component={Dashboard} />
-          <Route path='/addEmployee' component={AddEmployee} />
-          <Route path='/employeesList' component={ListEmployees}></Route>
-          <Route path='/updateEmployee/:empId' component={UpdateEmployee}></Route>
       </div>
     </Router>
   )

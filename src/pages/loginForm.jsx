@@ -35,6 +35,7 @@ const Login = () => {
                 history.push('/dashboard');
                 })
                 .catch((error) => {
+                    alert('Invalid credentials...!')
                 console.log(error.message);
             });
             props.resetForm()

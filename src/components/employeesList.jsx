@@ -7,10 +7,9 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-// import VisibilityIcon from '@material-ui/icons/Visibility';
-// import EditIcon from '@material-ui/icons/Edit';
-// import DeleteIcon from '@material-ui/icons/Delete';
-// import { Link } from 'react-router-dom'
+import EditIcon from '@material-ui/icons/Edit';
+import DeleteIcon from '@material-ui/icons/Delete';
+import { Link } from 'react-router-dom'
 import { Employee } from '../services/employee'
 const employee = new Employee();
 
@@ -76,6 +75,7 @@ export const ListEmployees = () => {
             <StyledTableCell >Department</StyledTableCell>
             <StyledTableCell >Salary</StyledTableCell>
             <StyledTableCell >Company</StyledTableCell>
+            <StyledTableCell >Actions</StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -89,7 +89,8 @@ export const ListEmployees = () => {
               <StyledTableCell >{employee.salary}</StyledTableCell>
               <StyledTableCell >{employee.company}</StyledTableCell>
               <StyledTableCell >
-                
+                <Link ><EditIcon style={{ fill: '#000000' }} /></Link>&nbsp;&nbsp;&nbsp;
+                <Link ><DeleteIcon style={{ fill: '#000000' }} /></Link>
               </StyledTableCell>
             </StyledTableRow>
           ))}
