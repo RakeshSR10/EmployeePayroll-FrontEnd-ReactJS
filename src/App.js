@@ -1,12 +1,13 @@
 import React from 'react';
+require('dotenv').config()
 import './App.css';
 import Registration from './pages/registerForm.jsx'
 import Login from './pages/loginForm.jsx'; 
 import Dashboard from './components/dashboard.jsx';
 import AddEmployee from './components/addEmployee.jsx';
 import { ListEmployees } from './components/employeesList';
+import { UpdateEmployee } from './components/employeeUpdate.jsx';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-require('dotenv').config()
 
 const App = () => {
   return (
@@ -19,8 +20,9 @@ const App = () => {
           </Switch>
       
           <Route path='/dashboard' component={Dashboard} />
-          <Route path='/dashboard/addEmployee' component={AddEmployee} />
-          <Route path='/dashboard/employeesList' component={ListEmployees}></Route>
+          <Route path='/addEmployee' component={AddEmployee} />
+          <Route path='/employeesList' component={ListEmployees}></Route>
+          <Route path='/updateEmployee/:empId' component={UpdateEmployee}></Route>
       </div>
     </Router>
   )

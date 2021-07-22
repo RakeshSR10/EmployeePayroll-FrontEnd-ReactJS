@@ -1,16 +1,16 @@
-import React from 'react';
-import { Grid, Paper, Avatar, Typography, TextField, Button } from '@material-ui/core';
+import React, { useState, useEffect } from "react";
+import { Grid, Paper, Avatar, TextField, Button } from '@material-ui/core';
 import PersonAddOutlinedIcon from '@material-ui/icons/PersonAddOutlined';
 import { Formik, Field, Form, ErrorMessage } from 'formik'
 import * as Yup from 'yup';
 import { Employee } from '../services/employee.js';
-import { useHistory } from 'react-router';
+import { useHistory, useParams } from 'react-router-dom';
 
 const employee = new Employee();
 
-const AddEmployee = () => {
-
+export const UpdateEmployee = () => {
     const history = useHistory();
+    const { empId } = useParams();
     const paperStyle = {padding:'60px 20px', width:400, margin:'120px auto'}
     const headerStyle = {margin:0}  
     const avatarStyle = {backgroundColor:'#1bbd7e'}
@@ -24,17 +24,20 @@ const AddEmployee = () => {
         salary: '',
         company: ''
     }
+    const [empData, setEmployee] = useState(initialValues);
 
-    const onSubmit = (values, props) => {
-        const employeeDetails = {
-            name: values.name,
-            email: values.email,
-            phoneNumber: values.phoneNumber,
-            department: values.department,
-            salary: values.salary,
-            company: values.company
-        };
-        employee.addEmployee(employeeDetails).then((res) => {
+    useEffect(() => {
+        employee.getEmployee(empId).then((res) => {
+            setEmployee(res.data.data);
+        }).catch(err => {
+            console.log(err);
+        });
+    });
+
+    const onSubmit = (event, props) => {
+        event.preventDefault();
+        employee.addEmployee(empData).then((res) => {
+            setEmployee(res.data.data);
             alert(res.data.message);
             history.push('/EmployeesList');
         }).catch((error) => {
@@ -43,7 +46,13 @@ const AddEmployee = () => {
         props.resetForm()
         props.setSubmitting(false)
     } 
-    
+    let {name,email,phoneNumber,department,salary,company} = empData;
+
+    const onInputChange = (e) => {
+        console.log(empData);
+        setEmployee({...empData, [e.target.name]: e.target.value});
+        console.log(empData);
+    }
     const validationSchema = Yup.object().shape({
         name: Yup.string().min(3,"first name is too short").matches(/^[A-Z ]{1}[a-z A-Z ]{3,}$/).required("Required"),
         email: Yup.string().email('please enter valid email').required('Required'),
@@ -60,8 +69,7 @@ const AddEmployee = () => {
                         <Avatar data-testid='avatar' style={ avatarStyle }>
                             <PersonAddOutlinedIcon />
                         </Avatar>
-                        <h2 data-testid='heading' style={headerStyle}>Add Employee Form</h2>
-                        <Typography data-testid="typography" variant='caption' gutterBottom>Please fill all the fields</Typography>
+                        <h2 data-testid='heading' style={headerStyle}>Employee Details</h2>
                     </Grid>
                     <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
                         {(props) => (
@@ -70,6 +78,8 @@ const AddEmployee = () => {
                                     fullWidth required 
                                     label='Name' 
                                     placeholder='your name' 
+                                    value={name}
+                                    onChange={e => {onInputChange(e)}}
                                     helperText={<ErrorMessage name="name"/>} 
                                 name="name"/>
 
@@ -77,6 +87,8 @@ const AddEmployee = () => {
                                     fullWidth required 
                                     label='Email' 
                                     placeholder='your email' 
+                                    value={email}
+                                    onChange={e => {onInputChange(e)}}
                                     helperText={<ErrorMessage name="email"/>} 
                                 name="email"/>
 
@@ -84,24 +96,32 @@ const AddEmployee = () => {
                                     fullWidth required 
                                     label='Phone Number' 
                                     placeholder='your email' 
+                                    value={phoneNumber}
+                                    onChange={e => {onInputChange(e)}}
                                     helperText={<ErrorMessage name="phoneNumber"/>} 
                                 name="phoneNumber"/>
 
                                 <Field as={TextField} 
                                     fullWidth required 
-                                    label='Department'  
+                                    label='Department' 
+                                    value={department}
+                                    onChange={e => {onInputChange(e)}} 
                                     helperText={<ErrorMessage name="department"/>} 
                                 name="department"/>
 
                                 <Field as={TextField} 
                                     fullWidth required 
                                     label='Salary'  
+                                    value={salary}
+                                    onChange={e => {onInputChange(e)}}
                                     helperText={<ErrorMessage name="salary"/>} 
                                 name="salary"/>
 
                                 <Field as={TextField} 
                                     fullWidth required 
-                                    label='Company'  
+                                    label='Company'
+                                    value={company}
+                                    onChange={e => {onInputChange(e)}}  
                                     helperText={<ErrorMessage name="company"/>} 
                                 name="company"/>
 
@@ -109,14 +129,12 @@ const AddEmployee = () => {
                                     variant='contained' 
                                     disabled={props.isSubmitting} 
                                     color='primary' 
-                                    style={marginTop}>{props.isSubmitting ? "Loading" : "ADD"}
+                                    style={marginTop}>{props.isSubmitting ? "Loading" : "UPDATE"}
                                 </Button>
                             </Form>
                         )}
                     </Formik>
                 </Paper>
             </Grid>
-        )   
-}
-
-export default AddEmployee;
+        )
+};

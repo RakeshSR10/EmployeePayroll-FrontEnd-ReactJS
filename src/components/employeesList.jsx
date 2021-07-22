@@ -1,4 +1,4 @@
-import React, { useState} from "react";
+import React, { useState, useEffect} from "react";
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -7,12 +7,12 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-// import { Employee } from '../services/employee'
-import VisibilityIcon from '@material-ui/icons/Visibility';
-import EditIcon from '@material-ui/icons/Edit';
-import DeleteIcon from '@material-ui/icons/Delete';
-import { Link } from 'react-router-dom'
-// const employee = new Employee();
+// import VisibilityIcon from '@material-ui/icons/Visibility';
+// import EditIcon from '@material-ui/icons/Edit';
+// import DeleteIcon from '@material-ui/icons/Delete';
+// import { Link } from 'react-router-dom'
+import { Employee } from '../services/employee'
+const employee = new Employee();
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -44,10 +44,25 @@ const tableStyle = {
 }
 
 export const ListEmployees = () => {
-  let [employees] = useState([]);
+  let [employees, setEmployees] = useState([]);
   const classes = useStyles();
 
+  const loadEmployees = () => {
+    employee.getAllEmployees().then((response) => {
+      if (response.data.success === true) {
+        setEmployees(response.data.data);
+      }
+      else {
+        console.log("Some error occurred!");
+      }
+    }).catch((error) => {
+      console.log(error.message);
+    });
+  };
 
+  useEffect(() => {
+    loadEmployees();
+  }, []);
   
 
   return (
@@ -74,9 +89,7 @@ export const ListEmployees = () => {
               <StyledTableCell >{employee.salary}</StyledTableCell>
               <StyledTableCell >{employee.company}</StyledTableCell>
               <StyledTableCell >
-                <Link to='/dashboard/viewEmployee'><VisibilityIcon style={{ fill: '#000000' }} /></Link>&nbsp;&nbsp;&nbsp;
-                <Link to={`/dashboard/updateEmployee/${employee._id}`}><EditIcon style={{ fill: '#000000' }} /></Link>&nbsp;&nbsp;&nbsp;
-                <Link onClick=''><DeleteIcon style={{ fill: '#000000' }} /></Link>
+                
               </StyledTableCell>
             </StyledTableRow>
           ))}

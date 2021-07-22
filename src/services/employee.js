@@ -1,12 +1,36 @@
 import Axios from "axios";
 Axios.defaults.baseURL = process.env.REACT_APP_BASE_URL;
-const TOKEN = localStorage.getItem('token');
+let token = localStorage.getItem('token');
 
 export class Employee {
     addEmployee = (employeeDetails) => {
         return Axios.post('/addEmployee', employeeDetails, {
             headers: {
-                Authorization: TOKEN
+                'token': token
+            },
+        });
+    }
+
+    getAllEmployees = () => {
+        return Axios.get('/getEmployees', {
+            headers : {
+                'token': token
+            }
+        })
+    }
+
+    updateEmployee = (empData, empId) => {
+        return Axios.put(`/updateEmployee/${empId}`, empData, {
+            headers:{
+                'token': token
+            },
+        });
+    }
+
+    getEmployee = (empId) => {
+        return Axios.get(`/getEmployee/${empId}`, {
+            headers: {
+                'token': token
             },
         });
     }

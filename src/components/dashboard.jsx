@@ -167,24 +167,29 @@ export default function Dashboard() {
                 </div>
                 <Divider />
                 <List>
-                    <ListItem button component={Link} to={'/dashboard/EmployeesList'}>
+                    <ListItem button component={Link} 
+                    to={'/EmployeesList'}>
                         <ListItemIcon>
                             <ViewListIcon />
                         </ListItemIcon>
                         <ListItemText primary="List" />
                     </ListItem>
-                    <ListItem button component={Link} to={'/dashboard/addEmployee'}>
+
+                    <ListItem button component={Link} 
+                    to={'/addEmployee'}>
                         <ListItemIcon>
                             <AddBoxIcon />
                         </ListItemIcon>
                         <ListItemText primary="Add" />
                     </ListItem>
+
                     <ListItem button component={Link}>
                         <ListItemIcon>
                             <EditIcon />
                         </ListItemIcon>
                         <ListItemText primary="Edit" />
                     </ListItem>
+
                     <ListItem button component={Link} >
                         <ListItemIcon>
                             <DeleteIcon />
