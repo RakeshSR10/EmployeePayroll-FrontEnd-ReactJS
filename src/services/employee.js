@@ -10,7 +10,7 @@ export class Employee {
             },
         });
     }
-
+    
     getAllEmployees = () => {
         return Axios.get('/getEmployees', {
             headers : {
@@ -19,4 +19,5 @@ export class Employee {
         })
     }
 
+    
 }

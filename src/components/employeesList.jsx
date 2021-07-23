@@ -47,9 +47,9 @@ export const ListEmployees = () => {
   const classes = useStyles();
 
   const loadEmployees = () => {
-    employee.getAllEmployees().then((response) => {
-      if (response.data.success === true) {
-        setEmployees(response.data.data);
+    employee.getAllEmployees().then((res) => {
+      if (res.data.success === true) {
+        setEmployees(res.data.data);
       }
       else {
         console.log("Some error occurred!");
@@ -63,7 +63,16 @@ export const ListEmployees = () => {
     loadEmployees();
   }, []);
   
-
+  const deleteEmployee = (empId) => {
+    employee.removeEmployee(empId)
+            .then((response)=>{
+              console.log(response)
+              alert(response.data.message);
+            }).catch(error=>{
+              console.log(error.message);
+            });
+    loadEmployees();
+  }
   return (
     <TableContainer component={Paper} style={tableStyle}>
       <Table className={classes.table} aria-label="customized table">
@@ -89,8 +98,8 @@ export const ListEmployees = () => {
               <StyledTableCell >{employee.salary}</StyledTableCell>
               <StyledTableCell >{employee.company}</StyledTableCell>
               <StyledTableCell >
-                <Link ><EditIcon style={{ fill: '#000000' }} /></Link>&nbsp;&nbsp;&nbsp;
-                <Link ><DeleteIcon style={{ fill: '#000000' }} /></Link>
+                <Link to={`/updateEmployee/${employee._id}`}><EditIcon style={{ fill: '#000000' }} /></Link>&nbsp;&nbsp;&nbsp;
+                <Link onClick={() => { deleteEmployee(employee._id) }}><DeleteIcon style={{ fill: '#000000' }} /></Link>
               </StyledTableCell>
             </StyledTableRow>
           ))}

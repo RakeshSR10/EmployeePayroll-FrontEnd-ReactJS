@@ -1,14 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 import { Grid, Paper, Avatar, TextField, Button } from '@material-ui/core';
 import PersonAddOutlinedIcon from '@material-ui/icons/PersonAddOutlined';
-import { Formik, Field, Form, ErrorMessage } from 'formik'
+import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { Employee } from '../services/employee.js';
 import { useHistory, useParams } from 'react-router-dom';
 
 const employee = new Employee();
 
-export const UpdateEmployee = () => {
+const UpdateEmployee = () => {
+
     const history = useHistory();
     const { empId } = useParams();
     const paperStyle = {padding:'60px 20px', width:400, margin:'120px auto'}
@@ -24,19 +25,21 @@ export const UpdateEmployee = () => {
         salary: '',
         company: ''
     }
+
     const [empData, setEmployee] = useState(initialValues);
 
     useEffect(() => {
-        employee.getEmployee(empId).then((res) => {
+        employee.getEmployee(empId)
+        .then((res) => {
             setEmployee(res.data.data);
         }).catch(err => {
-            console.log(err);
-        });
-    });
+            alert(err);
+        })
+    }, [empData]);
 
     const onSubmit = (event, props) => {
         event.preventDefault();
-        employee.addEmployee(empData).then((res) => {
+        employee.editEmployee(empData, empId).then((res) => {
             setEmployee(res.data.data);
             alert(res.data.message);
             history.push('/EmployeesList');
@@ -46,12 +49,14 @@ export const UpdateEmployee = () => {
         props.resetForm()
         props.setSubmitting(false)
     } 
-    let {name,email,phoneNumber,department,salary,company} = empData;
+    let {
+        name, email, phoneNumber, department, salary, company
+    } = empData;
 
     const onInputChange = (e) => {
         console.log(empData);
-        setEmployee({...empData, [e.target.name]: e.target.value});
-        console.log(empData);
+        setEmployee({...empData, [e.target.name] : e.target.value});
+        console.log('---------------', empData);
     }
     const validationSchema = Yup.object().shape({
         name: Yup.string().min(3,"first name is too short").matches(/^[A-Z ]{1}[a-z A-Z ]{3,}$/).required("Required"),
@@ -69,9 +74,9 @@ export const UpdateEmployee = () => {
                         <Avatar data-testid='avatar' style={ avatarStyle }>
                             <PersonAddOutlinedIcon />
                         </Avatar>
-                        <h2 data-testid='heading' style={headerStyle}>Employee Details</h2>
+                        <h2 data-testid='heading' style={headerStyle}>Update Employee Form</h2>
                     </Grid>
-                    <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
+                    <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema} enableReinitialize={true}>
                         {(props) => (
                             <Form>
                                 <Field as={TextField} 
@@ -86,42 +91,42 @@ export const UpdateEmployee = () => {
                                 <Field as={TextField} 
                                     fullWidth required 
                                     label='Email' 
-                                    placeholder='your email' 
+                                    placeholder='your email'
                                     value={email}
-                                    onChange={e => {onInputChange(e)}}
+                                    onChange={e => {onInputChange(e)}} 
                                     helperText={<ErrorMessage name="email"/>} 
                                 name="email"/>
 
                                 <Field as={TextField} 
                                     fullWidth required 
                                     label='Phone Number' 
-                                    placeholder='your email' 
+                                    placeholder='your phone number'
                                     value={phoneNumber}
-                                    onChange={e => {onInputChange(e)}}
+                                    onChange={e => {onInputChange(e)}} 
                                     helperText={<ErrorMessage name="phoneNumber"/>} 
                                 name="phoneNumber"/>
 
                                 <Field as={TextField} 
                                     fullWidth required 
-                                    label='Department' 
+                                    label='Department'
                                     value={department}
-                                    onChange={e => {onInputChange(e)}} 
+                                    onChange={e => {onInputChange(e)}}  
                                     helperText={<ErrorMessage name="department"/>} 
                                 name="department"/>
 
                                 <Field as={TextField} 
                                     fullWidth required 
-                                    label='Salary'  
+                                    label='Salary' 
                                     value={salary}
-                                    onChange={e => {onInputChange(e)}}
+                                    onChange={e => {onInputChange(e)}} 
                                     helperText={<ErrorMessage name="salary"/>} 
                                 name="salary"/>
 
                                 <Field as={TextField} 
                                     fullWidth required 
-                                    label='Company'
+                                    label='Company'  
                                     value={company}
-                                    onChange={e => {onInputChange(e)}}  
+                                    onChange={e => {onInputChange(e)}}
                                     helperText={<ErrorMessage name="company"/>} 
                                 name="company"/>
 
@@ -136,5 +141,7 @@ export const UpdateEmployee = () => {
                     </Formik>
                 </Paper>
             </Grid>
-        )
-};
+        )   
+}
+
+export default UpdateEmployee;
