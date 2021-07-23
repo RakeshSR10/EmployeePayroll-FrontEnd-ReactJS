@@ -18,6 +18,29 @@ export class Employee {
             }
         })
     }
+    editEmployee = (empData, empId)=>{
+        return Axios.put(`/updateEmployee/${empId}`,
+        empData,{
+          headers: {
+            'token': token
+          },
+        });
+    }
 
+    getEmployee = (empId)=>{
+        return Axios.get(`/getEmployee/${empId}`,{
+          headers: {
+            'token': token
+          },
+        });
+    }
+    
+    removeEmployee = (empId)=>{
+        return Axios.delete(`/deleteEmployee/${empId}`,{
+          headers: {
+            'token': token
+          },
+        });
+    }
     
 }
