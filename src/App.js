@@ -7,24 +7,24 @@ import Dashboard from './components/dashboard.jsx';
 import AddEmployee from './components/addEmployee.jsx';
 import { ListEmployees } from './components/employeesList.jsx';
 import UpdateEmployee from './components/updateEmployee.jsx';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
-const App = () => {
+function App(){
   return (
-    <Router >
+    <BrowserRouter >
       <div className="App">
           <Switch>
-          <Route exact path='/' component={Login} />
+            <Route exact path='/' component={Login} />
             <Route path='/register' component={Registration} />
             <Route path='/login' component={Login} />
-            <Route path='/dashboard' component={Dashboard} />
-            <Route path='/addEmployee' component={AddEmployee} />
-            <Route path='/employeesList' component={ListEmployees}></Route>
-            <Route path='/updateEmployee' component={UpdateEmployee}></Route>
           </Switch>
+            <Route path='/dashboard' component={Dashboard} />
+            <Route path='/dashboard/addEmployee' component={AddEmployee} />
+            <Route path='/dashboard/employeesList' component={ListEmployees}></Route>
+            <Route path='/dashboard/updateEmployee/:empId' component={UpdateEmployee}></Route>
       </div>
-    </Router>
-  )
+    </BrowserRouter>
+  );
 }
 
 export default App;

@@ -11,6 +11,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { Link } from 'react-router-dom'
 import { Employee } from '../services/employee'
+
 const employee = new Employee();
 
 const StyledTableCell = withStyles((theme) => ({
@@ -33,12 +34,12 @@ const StyledTableRow = withStyles((theme) => ({
 
 const useStyles = makeStyles({
   table: {
-    minWidth: 700,
+    minWidth: 500,
   },
 });
 const tableStyle = {
   padding: "30px 20px",
-  width: 1200, margin: "80px auto",
+  width: 1000, margin: "80px auto",
   elevation: 20
 }
 
@@ -98,7 +99,7 @@ export const ListEmployees = () => {
               <StyledTableCell >{employee.salary}</StyledTableCell>
               <StyledTableCell >{employee.company}</StyledTableCell>
               <StyledTableCell >
-                <Link to={`/updateEmployee/${employee._id}`}><EditIcon style={{ fill: '#000000' }} /></Link>&nbsp;&nbsp;&nbsp;
+                <Link to={`/dashboard/updateEmployee/${employee._id}`}><EditIcon style={{ fill: '#000000' }} /></Link>&nbsp;&nbsp;&nbsp;
                 <Link onClick={() => { deleteEmployee(employee._id) }}><DeleteIcon style={{ fill: '#000000' }} /></Link>
               </StyledTableCell>
             </StyledTableRow>
