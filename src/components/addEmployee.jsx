@@ -11,7 +11,7 @@ const employee = new Employee();
 const AddEmployee = () => {
 
     const history = useHistory();
-    const paperStyle = {padding:'60px 20px', width:400, margin:'60px auto'}
+    const paperStyle = {padding:'60px 20px', width:400, margin:'120px auto'}
     const headerStyle = {margin:0}  
     const avatarStyle = {backgroundColor:'#1bbd7e'}
     const marginTop = {marginTop:20}

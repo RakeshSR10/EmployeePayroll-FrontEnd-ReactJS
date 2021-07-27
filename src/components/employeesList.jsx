@@ -38,9 +38,9 @@ const useStyles = makeStyles({
   },
 });
 const tableStyle = {
-  padding: "30px 20px",
-  width: 1000, margin: "80px auto",
-  elevation: 20
+  padding: "50px 50px",
+  width: 1000, margin: "120px auto",
+  elevation: 40
 }
 
 export const ListEmployees = () => {
@@ -65,6 +65,7 @@ export const ListEmployees = () => {
   }, []);
   
   const deleteEmployee = (empId) => {
+    console.log('Emp Id ', empId);
     employee.removeEmployee(empId)
             .then((response)=>{
               console.log(response)
