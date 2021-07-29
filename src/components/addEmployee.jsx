@@ -8,6 +8,10 @@ import { useHistory } from 'react-router-dom';
 
 const employee = new Employee();
 
+/**
+ * @description AddEmployee functional component to return Employee form page
+ * @return Employee form page component
+ */
 const AddEmployee = () => {
 
     const history = useHistory();
@@ -24,7 +28,12 @@ const AddEmployee = () => {
         salary: '',
         company: ''
     }
-
+    
+    /**
+    * @description handling on successful onSubmit New Employee Details form
+    * @param values, props
+    * @return Employee data to Dashboard
+    */
     const onSubmit = (values, props) => {
         const employeeDetails = {
             name: values.name,
@@ -44,6 +53,10 @@ const AddEmployee = () => {
         props.setSubmitting(false)
     } 
     
+    /**
+   * @description Validates the form
+   * @return Error if values have any error
+   */
     const validationSchema = Yup.object().shape({
         name: Yup.string().min(3,"first name is too short").matches(/^[A-Z ]{1}[a-z A-Z ]{3,}$/).required("Required"),
         email: Yup.string().email('please enter valid email').required('Required'),

@@ -1,5 +1,4 @@
 import { render } from "@testing-library/react";
-import "@testing-library/jest-dom";
 import AddEmployee from "../components/addEmployee";
 import "@testing-library/jest-dom/extend-expect";
 
@@ -12,7 +11,7 @@ describe("Testing Heading tags", () => {
         expect(title).toHaveTextContent("Add Employee Form");
     });
     //negative test case
-    it("Given wrong title content should give proper result", () => {
+    it("givenWrongTitle_contentShould_returnProperResult", () => {
         // eslint-disable-next-line react/react-in-jsx-scope
         const { getByTestId } = render(<AddEmployee />);
         const title = getByTestId("heading");

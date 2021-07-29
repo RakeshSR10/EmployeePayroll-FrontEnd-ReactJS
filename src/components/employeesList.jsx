@@ -43,6 +43,10 @@ const tableStyle = {
   elevation: 40
 }
 
+/**
+   * @description handle List button, when its fetches the Employee data from Backend
+   * @returns success or failure message
+   */
 export const ListEmployees = () => {
   let [employees, setEmployees] = useState([]);
   const classes = useStyles();
@@ -64,8 +68,12 @@ export const ListEmployees = () => {
     loadEmployees();
   }, []);
   
+  /**
+   * @description handle deleteEmployee request button, when we want to Delete and Employee data
+   * @param empId is passed to delete the Item
+   * @returns success or failure message
+   */
   const deleteEmployee = (empId) => {
-    console.log('Emp Id ', empId);
     employee.removeEmployee(empId)
             .then((response)=>{
               console.log(response)
@@ -76,20 +84,20 @@ export const ListEmployees = () => {
     loadEmployees();
   }
   return (
-    <TableContainer component={Paper} style={tableStyle}>
-      <Table className={classes.table} aria-label="customized table">
+    <TableContainer data-testid='tableContainer' component={Paper} style={tableStyle}>
+      <Table data-testid='table' className={classes.table} aria-label="customized table">
         <TableHead>
-          <TableRow>
-            <StyledTableCell >Name</StyledTableCell>
-            <StyledTableCell >Email</StyledTableCell>
-            <StyledTableCell >Phone Number</StyledTableCell>
-            <StyledTableCell >Department</StyledTableCell>
-            <StyledTableCell >Salary</StyledTableCell>
-            <StyledTableCell >Company</StyledTableCell>
+          <TableRow data-testid='tableRowHeader'>
+            <StyledTableCell data-testid='name'>Name</StyledTableCell>
+            <StyledTableCell data-testid='email'>Email</StyledTableCell>
+            <StyledTableCell data-testid='phoneNumber'>Phone Number</StyledTableCell>
+            <StyledTableCell data-testid='department'>Department</StyledTableCell>
+            <StyledTableCell data-testid='salary'>Salary</StyledTableCell>
+            <StyledTableCell data-testid='company'>Company</StyledTableCell>
             <StyledTableCell >Actions</StyledTableCell>
           </TableRow>
         </TableHead>
-        <TableBody>
+        <TableBody data-testid='tableBody'>
           {employees.map((employee) => (
             // eslint-disable-next-line react/jsx-key
             <StyledTableRow >

@@ -7,6 +7,10 @@ import { useHistory } from 'react-router';
 import User from '../services/user.js';
 const  userObject = new User();
 
+/**
+ * @description Registration functional component to return Registration Page
+ * @return Registration page component
+ */
 const Registration = () => {
 
     const paperStyle = {padding:'60px 20px', width:400, margin:'120px auto'}
@@ -23,6 +27,10 @@ const Registration = () => {
         password: '',
     }
 
+    /**
+    * @description Validation Schema using YUP
+    * @return Error if validation fails
+    */
     const validationSchema = Yup.object().shape({
         firstName: Yup.string().min(3,"first name is too short").matches(/^[A-Z ]{1}[a-z A-Z ]{3,}$/).required("Required"),
         lastName: Yup.string().min(1).matches(/^[a-z A-Z]{1,}$/).required("Required"),
@@ -32,6 +40,10 @@ const Registration = () => {
                 "Password should contain letters,numbers & special characters").required("Required")
     })
 
+    /**
+    * @description Handle Onsubmit-> Integrates the data object with backend when Services API is called
+    * @params takes input as values and props
+    */
     const onSubmit = (values, props) => {
         const user = {
             "firstName": values.firstName,

@@ -6,6 +6,10 @@ import { TextValidator, ValidatorForm } from 'react-material-ui-form-validator';
 
 const employee = new Employee();
 
+/**
+ * @description UpdateEmployee class component to edit employee details
+ * @returns updated details page component to the backend
+ */
 class UpdateEmployee extends Component {
     constructor(props) {
         super(props)
@@ -38,14 +42,17 @@ class UpdateEmployee extends Component {
                     salary: result.salary,
                     company: result.company
                 });
-            } else {
-                alert('Employee not found');
             }
         }).catch((err) => {
             console.log(err.message);
         });
     }
 
+    /**
+   * @description handle updateEmployee request button, when we want to update Employee Details using empId
+   * @param empData and resetForm are Passed
+   * @returns success or failure message
+   */
     handleSubmit = (e) => {
         e.preventDefault();
         const empData = {

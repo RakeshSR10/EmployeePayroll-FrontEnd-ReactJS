@@ -7,6 +7,10 @@ import * as Yup from 'yup';
 import User from '../services/user.js';
 const user = new User();
 
+/**
+ * @description Login functional component to return Login Page
+ * @return Login page component
+ */
 const Login = () => {
         const paperStyle = {padding:'40px 60px', height:'auto', width:300, margin:"120px auto"}
         const avatarStyle = {backgroundColor:'#1bbd7e'}
@@ -19,11 +23,19 @@ const Login = () => {
             password: '',
         }
 
+        /**
+        * @description Validation Schema using YUP
+        * @return Error if validation fails
+        */
         const validationSchema = Yup.object().shape({
             email: Yup.string().email('please enter valid email').required("Required"),
             password: Yup.string().min(8).required("Required"),
         })
 
+        /**
+        * @description Handle Onsubmit-> Intigrates the data object with backemd when Services API is called
+        * @params takes input as values and props
+        */
         const onSubmit = (values, props) => {        
             const loginDetails = {
                 "email": values.email,
