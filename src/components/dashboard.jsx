@@ -23,6 +23,7 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import ExitToAppOutlinedIcon from '@material-ui/icons/ExitToAppOutlined';
 import { Link, useHistory } from "react-router-dom";
 
+
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -95,6 +96,7 @@ export default function Dashboard() {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
+  
 
   /**
    * @description handle drawerOpen, when its called sets setOPen variable to true

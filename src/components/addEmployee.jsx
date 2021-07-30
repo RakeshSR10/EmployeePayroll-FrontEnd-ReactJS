@@ -3,6 +3,8 @@ import { Grid, Paper, Avatar, TextField, Button } from '@material-ui/core';
 import PersonAddOutlinedIcon from '@material-ui/icons/PersonAddOutlined';
 import { Formik, Field, Form, ErrorMessage } from 'formik'
 import * as Yup from 'yup';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { Employee } from '../services/employee.js';
 import { useHistory } from 'react-router-dom';
 
@@ -19,6 +21,11 @@ const AddEmployee = () => {
     const headerStyle = {margin:0}  
     const avatarStyle = {backgroundColor:'#1bbd7e'}
     const marginTop = {marginTop:20}
+
+    const notify = () => 
+            toast.success("Added new employee Successfully..!", {
+                position:'top-right'
+    });
 
     const initialValues = {
         name: '',
@@ -128,12 +135,14 @@ const AddEmployee = () => {
                                     variant='contained' 
                                     disabled={props.isSubmitting} 
                                     color='primary' 
+                                    onClick={notify}
                                     style={marginTop}>{props.isSubmitting ? "Loading" : "ADD"}
                                 </Button>
                             </Form>
                         )}
                     </Formik>
                 </Paper>
+                <ToastContainer/>
             </Grid>
         )   
 }

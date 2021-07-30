@@ -13,6 +13,7 @@ function App(){
   return (
     <BrowserRouter >
       <div className="App">
+        
           <Switch>
             <Route exact path='/' component={Login} />
             <Route path='/register' component={Registration} />

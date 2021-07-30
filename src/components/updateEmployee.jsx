@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 import PersonAddOutlinedIcon from '@material-ui/icons/PersonAddOutlined';
 import { Employee } from '../services/employee.js';
 import { TextValidator, ValidatorForm } from 'react-material-ui-form-validator';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const employee = new Employee();
 
@@ -78,7 +80,12 @@ class UpdateEmployee extends Component {
         const paperStyle = {padding:'60px 20px', width:400, margin:'120px auto'}
         const headerStyle = {margin:0}  
         const avatarStyle = {backgroundColor:'#1bbd7e'}
-        const marginTop = {marginTop:20}
+        const marginTop = {marginTop:20, backdropFilter:'blur(5px)'}
+        const notify = () => 
+            toast.success("Employee details updated Successfully..!", {
+                position:'top-right'
+        });
+        // const backdropFilter = { backdropFilter:'blur(5px)'}
 
         return (
             <Grid>
@@ -149,12 +156,15 @@ class UpdateEmployee extends Component {
                             variant='contained'
                             color='primary'
                             style={marginTop}
+                            onClick={notify}
+                            // style={backdropFilter}
                             data-testid='submitButton'
                         >
                             UPDATE
                         </Button>
                     </ValidatorForm>
                 </Paper>
+                <ToastContainer/>
             </Grid>
         )
     }

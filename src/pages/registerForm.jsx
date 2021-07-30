@@ -5,6 +5,9 @@ import { Formik, Field, Form, ErrorMessage } from 'formik'
 import * as Yup from 'yup';
 import { useHistory } from 'react-router';
 import User from '../services/user.js';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { Link } from 'react-router-dom';
 const  userObject = new User();
 
 /**
@@ -17,6 +20,10 @@ const Registration = () => {
     const headerStyle = {margin:0}  
     const avatarStyle = {backgroundColor:'#1bbd7e'}
     const marginTop = {marginTop:20}
+    const notify = () => 
+            toast.success("User Registered Successfully..!", {
+                position:'top-right'
+    });
 
     const history = useHistory();
     
@@ -113,12 +120,18 @@ const Registration = () => {
                                     variant='contained' 
                                     disabled={props.isSubmitting} 
                                     color='primary' 
+                                    onClick={notify}
                                     style={marginTop}>{props.isSubmitting ? "Loading" : "Sing-Up"}
-                                </Button>
+                                </Button><br/><br/>
+                                {/* <Typography>
+                                        {' '}
+                                        Already have account ? <Link to='/login'>Login</Link>
+                                    </Typography> */}
                             </Form>
                         )}
                     </Formik>
                 </Paper>
+                <ToastContainer/>
             </Grid>
         )   
 }

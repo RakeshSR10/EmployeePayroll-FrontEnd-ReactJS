@@ -1,11 +1,14 @@
 import React from 'react'
-import { Grid, Paper, Avatar, TextField, Button } from '@material-ui/core';
+import { Grid, Paper, Avatar, TextField, Button, Typography } from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { useHistory } from 'react-router';
 import * as Yup from 'yup';
 import User from '../services/user.js';
 const user = new User();
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { Link } from 'react-router-dom';
 
 /**
  * @description Login functional component to return Login Page
@@ -15,6 +18,10 @@ const Login = () => {
         const paperStyle = {padding:'40px 60px', height:'auto', width:300, margin:"120px auto"}
         const avatarStyle = {backgroundColor:'#1bbd7e'}
         const marginTop = {marginTop:20}
+        const notify = () => 
+            toast.success("Login Successfully..!", {
+                position:'top-right'
+            });
 
         const history = useHistory();
 
@@ -33,7 +40,7 @@ const Login = () => {
         })
 
         /**
-        * @description Handle Onsubmit-> Intigrates the data object with backemd when Services API is called
+        * @description Handle Onsubmit-> Integrates the data object with backend when Services API is called
         * @params takes input as values and props
         */
         const onSubmit = (values, props) => {        
@@ -74,11 +81,18 @@ const Login = () => {
                                     helperText={<ErrorMessage name="password" />}/>
                                 <Button type='submit' data-testid='submitButton'
                                     color='primary' variant="contained" style={marginTop} 
-                                    fullWidth>{props.isSubmitting ? "Loading" : "Sign-in"}</Button>
+                                    onClick={notify}
+                                    fullWidth>{props.isSubmitting ? "Loading" : "Sign-in"}
+                                </Button><br/><br/>
+                                {/* <Typography>
+                                    {' '}
+                                    Do you have account ? <Link to='/register'>Register here</Link>
+                                </Typography> */}
                             </Form>
                         )}
                     </Formik>
                 </Paper>
+                <ToastContainer />
             </Grid>
         )
 }
