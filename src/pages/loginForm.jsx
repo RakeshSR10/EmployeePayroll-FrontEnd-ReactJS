@@ -84,10 +84,10 @@ const Login = () => {
                                     onClick={notify}
                                     fullWidth>{props.isSubmitting ? "Loading" : "Sign-in"}
                                 </Button><br/><br/>
-                                {/* <Typography>
+                                <Typography>
                                     {' '}
                                     Do you have account ? <Link to='/register'>Register here</Link>
-                                </Typography> */}
+                                </Typography>
                             </Form>
                         )}
                     </Formik>

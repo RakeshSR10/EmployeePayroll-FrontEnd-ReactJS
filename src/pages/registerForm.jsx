@@ -123,10 +123,10 @@ const Registration = () => {
                                     onClick={notify}
                                     style={marginTop}>{props.isSubmitting ? "Loading" : "Sing-Up"}
                                 </Button><br/><br/>
-                                {/* <Typography>
+                                <Typography>
                                         {' '}
                                         Already have account ? <Link to='/login'>Login</Link>
-                                    </Typography> */}
+                                    </Typography>
                             </Form>
                         )}
                     </Formik>
