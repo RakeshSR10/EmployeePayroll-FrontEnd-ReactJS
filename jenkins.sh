@@ -1,6 +1,5 @@
 #!/bin/bash -x
 
-cp .env /home/ubuntu/Frontend/
 cd /home/ubuntu/Frontend
 directory=$(pwd)
 echo "Directory is $directory"
