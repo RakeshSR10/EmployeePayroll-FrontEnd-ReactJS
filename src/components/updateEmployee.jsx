@@ -85,7 +85,6 @@ class UpdateEmployee extends Component {
             toast.success("Employee details updated Successfully..!", {
                 position:'top-right'
         });
-        // const backdropFilter = { backdropFilter:'blur(5px)'}
 
         return (
             <Grid>
@@ -157,7 +156,6 @@ class UpdateEmployee extends Component {
                             color='primary'
                             style={marginTop}
                             onClick={notify}
-                            // style={backdropFilter}
                             data-testid='submitButton'
                         >
                             UPDATE

@@ -1,6 +1,6 @@
 import React from 'react';
 require('dotenv').config()
-import './App.css';
+import './scss/App.scss';
 import Registration from './pages/registerForm.jsx'
 import Login from './pages/loginForm.jsx'; 
 import Dashboard from './components/dashboard.jsx';

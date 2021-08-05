@@ -9,6 +9,8 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { Link } from 'react-router-dom'
 import { Employee } from '../services/employee'
 
@@ -58,10 +60,10 @@ export const ListEmployees = () => {
         setEmployees(res.data.data);
       }
       else {
-        console.log("Some error occurred!");
+        toast.error("Some error occurred!");
       }
     }).catch((error) => {
-      console.log(error.message);
+      toast.error(error.message);
     });
   };
 
@@ -77,10 +79,9 @@ export const ListEmployees = () => {
   const deleteEmployee = (empId) => {
     employee.removeEmployee(empId)
             .then((response)=>{
-              console.log(response)
-              alert(response.data.message);
+              toast.success(response.data.message)
             }).catch(error=>{
-              console.log(error.message);
+              toast.error(error.message);
             });
     loadEmployees();
   }
@@ -116,6 +117,15 @@ export const ListEmployees = () => {
           ))}
         </TableBody>
       </Table>
+      <ToastContainer
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover />
     </TableContainer>
   );
 }

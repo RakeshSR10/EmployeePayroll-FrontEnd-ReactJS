@@ -22,10 +22,10 @@ const AddEmployee = () => {
     const avatarStyle = {backgroundColor:'#1bbd7e'}
     const marginTop = {marginTop:20}
 
-    const notify = () => 
-            toast.success("Added new employee Successfully..!", {
-                position:'top-right'
-    });
+    // const notify = () => 
+    //         toast.success("Added new employee Successfully..!", {
+    //             position:'top-right'
+    // });
 
     const initialValues = {
         name: '',
@@ -51,8 +51,10 @@ const AddEmployee = () => {
             company: values.company
         };
         employee.addEmployee(employeeDetails).then((res) => {
-            alert(res.data.message);
+            toast(res.data.message);
+            setTimeout(() =>{
             history.push("/dashboard/EmployeesList");
+            }, 1000);
         }).catch((error) => {
             console.log(error);
         });
@@ -135,9 +137,17 @@ const AddEmployee = () => {
                                     variant='contained' 
                                     disabled={props.isSubmitting} 
                                     color='primary' 
-                                    onClick={notify}
                                     style={marginTop}>{props.isSubmitting ? "Loading" : "ADD"}
                                 </Button>
+                                <ToastContainer position="top-center"
+                                    autoClose={3000}
+                                    hideProgressBar={false}
+                                    newestOnTop={false}
+                                    closeOnClick
+                                    rtl={false}
+                                    pauseOnFocusLoss
+                                    draggable
+                                    pauseOnHover />
                             </Form>
                         )}
                     </Formik>

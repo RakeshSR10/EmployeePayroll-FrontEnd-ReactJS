@@ -16,8 +16,10 @@ module.exports = {
         "ecmaVersion": 12,
         "sourceType": "module"
     },
-    "plugins": [ "react" ],
-    "rules": { "react/prop-types": "off", "no-unused-vars": ["error", { "vars": "local", "args": "none", "ignoreRestSiblings": true }],
+    "plugins": ["react"],
+    "rules": {
+        "react/prop-types": "off",
+        "no-unused-vars": ["error", { "vars": "local", "args": "none", "ignoreRestSiblings": true }],
     },
     "parser": "babel-eslint"
 };

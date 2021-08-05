@@ -9,6 +9,7 @@ const user = new User();
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Link } from 'react-router-dom';
+import '../scss/loginForm.scss';
 
 /**
  * @description Login functional component to return Login Page
@@ -16,12 +17,8 @@ import { Link } from 'react-router-dom';
  */
 const Login = () => {
         const paperStyle = {padding:'40px 60px', height:'auto', width:300, margin:"120px auto"}
-        const avatarStyle = {backgroundColor:'#1bbd7e'}
+        const avatarStyle = {backgroundColor:'$logo'}
         const marginTop = {marginTop:20}
-        const notify = () => 
-            toast.success("Login Successfully..!", {
-                position:'top-right'
-            });
 
         const history = useHistory();
 
@@ -49,13 +46,18 @@ const Login = () => {
                 "password": values.password
             };
             user.login(loginDetails).then(res => {
-                alert("Login Successfully");
+                if(res.data.success === true){
                 localStorage.setItem('token', res.data.token);
-                history.push('/dashboard');
-                })
-                .catch((error) => {
-                    alert('Invalid credentials...!')
-                console.log(error.message);
+                setTimeout(() => {
+                    toast(res.data.message);
+                    history.push('/dashboard');
+                }, 1000);
+                toast.success('Login successfully...')
+                } else {
+                    toast.error('Invalid credentials...!')
+                }
+                }).catch((error) => {
+                toast.error(error.message);
             });
             props.resetForm()
             props.setSubmitting(false)    
@@ -80,19 +82,26 @@ const Login = () => {
                                     placeholder='Enter your password' type='password' fullWidth required
                                     helperText={<ErrorMessage name="password" />}/>
                                 <Button type='submit' data-testid='submitButton'
-                                    color='primary' variant="contained" style={marginTop} 
-                                    onClick={notify}
+                                    color='Primary' variant="contained" style={marginTop} 
                                     fullWidth>{props.isSubmitting ? "Loading" : "Sign-in"}
                                 </Button><br/><br/>
                                 <Typography>
                                     {' '}
                                     Do you have account ? <Link to='/register'>Register here</Link>
                                 </Typography>
+                                <ToastContainer
+                                    autoClose={3000}
+                                    hideProgressBar={false}
+                                    newestOnTop={false}
+                                    closeOnClick
+                                    rtl={false}
+                                    pauseOnFocusLoss
+                                    draggable
+                                    pauseOnHover />
                             </Form>
                         )}
                     </Formik>
                 </Paper>
-                <ToastContainer />
             </Grid>
         )
 }

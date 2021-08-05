@@ -8,6 +8,7 @@ import User from '../services/user.js';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Link } from 'react-router-dom';
+import '../scss/registerForm.scss';
 const  userObject = new User();
 
 /**
@@ -18,12 +19,12 @@ const Registration = () => {
 
     const paperStyle = {padding:'60px 20px', width:400, margin:'120px auto'}
     const headerStyle = {margin:0}  
-    const avatarStyle = {backgroundColor:'#1bbd7e'}
+    const avatarStyle = {backgroundColor:'$logoColor'}
     const marginTop = {marginTop:20}
-    const notify = () => 
-            toast.success("User Registered Successfully..!", {
-                position:'top-right'
-    });
+    // const notify = () => 
+    //         toast.success("User Registered Successfully..!", {
+    //             position:'top-right'
+    // });
 
     const history = useHistory();
     
@@ -59,11 +60,16 @@ const Registration = () => {
             "password": values.password,
         }
         userObject.register(user).then(res => {
-            alert("User Registered Successfully")
-            console.log(res.data.message);
-            history.push('/login');
+            if(res.data.success === true){
+                toast(res.data.message);
+                setTimeout(() => {
+                    history.push('/login');
+                }, 2000);
+            } else {
+                toast.error('Some error occurred...!');
+            }
         }).catch(error => {
-            alert(error.message);
+            toast.error('Registration failed...!');
         });    
         props.resetForm() 
         props.setSubmitting(false)      
@@ -120,18 +126,25 @@ const Registration = () => {
                                     variant='contained' 
                                     disabled={props.isSubmitting} 
                                     color='primary' 
-                                    onClick={notify}
                                     style={marginTop}>{props.isSubmitting ? "Loading" : "Sing-Up"}
                                 </Button><br/><br/>
                                 <Typography>
                                         {' '}
                                         Already have account ? <Link to='/login'>Login</Link>
                                     </Typography>
+                                    <ToastContainer
+                                        autoClose={2000}
+                                        hideProgressBar={false}
+                                        newestOnTop={false}
+                                        closeOnClick
+                                        rtl={false}
+                                        pauseOnFocusLoss
+                                        draggable
+                                        pauseOnHover />
                             </Form>
                         )}
                     </Formik>
                 </Paper>
-                <ToastContainer/>
             </Grid>
         )   
 }
